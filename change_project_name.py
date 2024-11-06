@@ -137,6 +137,30 @@ def update_readme_md(args):
     return 0
 
 
+def update_license(args):
+    if not os.path.exists("LICENSE"):
+        return 0
+    with open("LICENSE", "r") as f:
+        content = f.read()
+    if args.author is not None:
+        content = re.sub(r'Copyright (.*?) (.*?)', f'Copyright {datetime.datetime.now().year} {args.author}', content)
+    with open("LICENSE", "w") as f:
+        f.write(content)
+    return 0
+
+
+def update_docs_yml(args):
+    if not os.path.exists(".github/workflows/docs.yml"):
+        return 0
+    with open(".github/workflows/docs.yml", "r") as f:
+        content = f.read()
+    if args.package_name is not None:
+        content = re.sub(r'<package_name>', args.package_name, content)
+    with open(".github/workflows/docs.yml", "w") as f:
+        f.write(content)
+    return 0
+
+
 def main():
     parser = get_parser()
     args = parser.parse_args()
@@ -152,6 +176,9 @@ def main():
     update_sphinx_conf_py(args)
     update_sphinx_index_rst(args)
     update_sphinx_modules(args)
+    update_readme_md(args)
+    update_license(args)
+    update_docs_yml(args)
 
     return 0
 
