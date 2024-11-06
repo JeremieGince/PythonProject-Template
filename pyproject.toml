@@ -22,12 +22,10 @@ build-backend = "setuptools.build_meta"
 
 
 [project]
-name = "<PackageName>"
-dynamic = ["version", ]
+name = "PythonTemplate"
+dynamic = ["version", "readme"]
 description = ""
-authors = [
-  { name="Jérémie Gince", email="gincejeremie@gmail.com" },
-]
+authors = [{name = "Jeremie Gince", email = "gincejeremie@gmail.com"},]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
