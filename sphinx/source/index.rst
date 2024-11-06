@@ -12,11 +12,7 @@ Welcome to <PackageName>'s documentation!
 
     readme
 
-.. toctree::
-   :maxdepth: 4
-   :caption: Modules:
-
-   pkg
+.. automodule:: python_template
 
 
 .. include:: readme.rst

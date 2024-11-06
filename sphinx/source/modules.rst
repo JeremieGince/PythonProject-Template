@@ -1,7 +1,7 @@
-pkg
+python_template
 ====
 
 .. toctree::
    :maxdepth: 4
 
-   pkg
+   python_template
