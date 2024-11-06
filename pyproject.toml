@@ -23,10 +23,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "<PackageName>"
-dynamic = ["version", ]
+dynamic = ["version", "readme"]
 description = ""
 authors = [
-  { name="Jérémie Gince", email="gincejeremie@gmail.com" },
+  {name="Jérémie Gince", email="gincejeremie@gmail.com"},
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
