@@ -131,7 +131,7 @@ def update_readme_md(args):
     with open("README.md", "r") as f:
         content = f.read()
     if args.project_name is not None:
-        content = re.sub(r'# (.*?)\n', f'# {args.project_name}\n', content)
+        content = re.sub(r'# (.*?)', f'# {args.project_name}\n', content)
     with open("README.md", "w") as f:
         f.write(content)
     return 0
