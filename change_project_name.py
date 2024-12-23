@@ -4,7 +4,7 @@ want to update all the references to the old name in the project.
 
 You can delete this script after you have changed the name of the project.
 """
-
+import json
 import os
 import re
 import shutil
@@ -169,6 +169,9 @@ def main():
         # Camel case to snake case
         args.package_name = re.sub(r'(?<!^)(?=[A-Z])', '_', args.project_name).lower()
         print(f"Package name not provided. Setting package name to {args.package_name}")
+
+    print(f"Updating project variables with the following values:")
+    print(json.dumps(vars(args), indent=4))
 
     update_pyproject_toml(args)
     update_init_file(args)
