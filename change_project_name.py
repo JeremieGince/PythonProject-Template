@@ -61,6 +61,9 @@ def update_pyproject_toml(args):
             new_author = 'authors = [{name = "%s", email = "%s"},]' % (args.author, args.email)
         print(f"Setting author to {new_author}")
         content = re.sub(r'authors = \[.*?]', new_author, content)
+    if args.package_name is not None:
+        new_version = "version = {attr = \"%s.__version__\"}" % args.package_name
+        content = re.sub(r'version = {attr = ".*?"}', new_version, content)
     with open("pyproject.toml", "w") as f:
         f.write(content)
     return 0

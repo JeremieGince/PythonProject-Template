@@ -44,6 +44,11 @@ dependencies = [
     "pytest-cov>=4.1.0",
     "scipy>=1.8.0",
 ]
+license={file="LICENCE"}
+
+[tool.setuptools.dynamic]
+version = {attr = "python_template.__version__"}
+readme = {file = "README.md", content-type = "text/markdown"}
 
 
 [tool.setuptools]
