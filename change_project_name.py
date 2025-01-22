@@ -21,30 +21,35 @@ def get_parser():
         default=None,
         type=str,
         help="New name of the project",
+        required=True,
     )
     parser.add_argument(
         "--package_name",
         default=None,
         type=str,
-        help="New name of the project",
+        help="New name of the package",
+        required=False,
     )
     parser.add_argument(
         "--author",
         default=None,
         type=str,
         help="Author of the project",
+        required=True,
     )
     parser.add_argument(
         "--email",
         default=None,
         type=str,
         help="Email of the author of the project",
+        required=True,
     )
     parser.add_argument(
         "--url",
         default=None,
         type=str,
         help="URL of the project",
+        required=False,
     )
     return parser
 
@@ -64,6 +69,11 @@ def update_pyproject_toml(args):
     if args.package_name is not None:
         new_version = "version = {attr = \"%s.__version__\"}" % args.package_name
         content = re.sub(r'version = {attr = ".*?"}', new_version, content)
+        content = re.sub(
+            r'packages = \[{include = ".*?", from="src"\}]',
+            f'packages = [{{include = "{args.package_name}", from="src"}}]',
+            content
+        )
     with open("pyproject.toml", "w") as f:
         f.write(content)
     return 0
@@ -172,6 +182,9 @@ def main():
         # Camel case to snake case
         args.package_name = re.sub(r'(?<!^)(?=[A-Z])', '_', args.project_name).lower()
         print(f"Package name not provided. Setting package name to {args.package_name}")
+    if args.url is None:
+        args.url = f"https://github.com/{args.author}/{args.project_name}"
+        print(f"URL not provided. Setting URL to {args.url}")
 
     print(f"Updating project variables with the following values:")
     print(json.dumps(vars(args), indent=4))
