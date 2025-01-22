@@ -13,7 +13,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Operating System :: OS Independent",
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 dependencies = [
     "numpy>=1.29.5",
     "setuptools>=65.5.1",
@@ -21,7 +21,8 @@ dependencies = [
     "pytest-cov>=4.1.0",
     "pytest_json_report>=1.5.0",
     "pythonbasictools>=0.0.1a11",
-    "psutil>=5.9.6"
+    "psutil>=5.9.6",
+    "docutils>=0.21.2",
 ]
 license={file="LICENSE"}
 
