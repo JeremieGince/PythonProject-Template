@@ -180,6 +180,7 @@ def update_dockerfile(args):
     with open("Dockerfile", "r") as f:
         content = f.read()
     root_dir = os.path.basename(os.path.dirname(os.path.dirname(__file__)))
+    print(f"ROOT_DIR=/{root_dir}")
     content = re.sub(r'ENV ROOT_DIR=/(.*?)\n', f'ENV ROOT_DIR=/{root_dir}\n', content)
     with open("Dockerfile", "w") as f:
         f.write(content)
