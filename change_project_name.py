@@ -174,6 +174,18 @@ def update_docs_yml(args):
     return 0
 
 
+def update_dockerfile(args):
+    if not os.path.exists("Dockerfile"):
+        return 0
+    with open("Dockerfile", "r") as f:
+        content = f.read()
+    root_dir = os.path.basename(os.path.dirname(os.path.dirname(__file__)))
+    content = re.sub(r'ENV ROOT_DIR=/(.*?)\n', f'ENV ROOT_DIR=/{root_dir}\n', content)
+    with open("Dockerfile", "w") as f:
+        f.write(content)
+    return 0
+
+
 def main():
     parser = get_parser()
     args = parser.parse_args()
@@ -198,7 +210,7 @@ def main():
     update_readme_md(args)
     update_license(args)
     update_docs_yml(args)
-
+    update_dockerfile(args)
     return 0
 
 
