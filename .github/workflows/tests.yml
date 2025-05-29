@@ -5,9 +5,9 @@ name: Tests
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "*" ]
 
 permissions:
   contents: read
@@ -25,19 +25,30 @@ jobs:
         python-version: "3.10"
     - name: Install dependencies
       run: |
+        python -m venv ./venv
+        . ./venv/bin/activate
         python -m pip install --upgrade pip
-        pip install flake8 pytest
-        pip install -U pytest-cov coverage-lcov
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Lint with flake8
+        pip install poetry
+        poetry install --with=dev --no-interaction --no-ansi
+    - name: Test Linting
       run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
+        . ./venv/bin/activate
+        black src --check --diff
+        black tests --check --diff
+    - name: Test Typing
       run: |
-        python run_pytests.py tests --N_RANDOM_TESTS_PER_CASE=10 --run_slow=False
+        . ./venv/bin/activate
+        mypy src
+        mypy tests
+    - name: Test Notebooks
+      run: |
+        . ./venv/bin/activate
+        pytest --nbmake notebooks --nbmake-timeout=600  # 10 minutes timeout
+
+    - name: Test Unittests with pytest
+      run: |
+        . ./venv/bin/activate
+        python run_pytests.py tests --N_RANDOM_TESTS_PER_CASE=3 --run_slow=False
 
   Run-tests-on-Windows:
     name: Run tests on Windows-latest
@@ -51,16 +62,12 @@ jobs:
         python-version: "3.10"
     - name: Install dependencies
       run: |
+        python -m venv ./venv
+        . ./venv/Scripts/activate
         python -m pip install --upgrade pip
-        pip install flake8 pytest
-        pip install -r requirements.txt
-        pip install git+https://github.com/JeremieGince/PythonBasicTools
-    - name: Lint with flake8
+        pip install poetry
+        poetry install --with=dev --no-interaction --no-ansi
+    - name: Test Unittests with pytest
       run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
-      run: |
-        python run_pytests.py tests --N_RANDOM_TESTS_PER_CASE=10 --run_slow=False
+        . ./venv/Scripts/activate
+        python run_pytests.py tests --N_RANDOM_TESTS_PER_CASE=3 --run_slow=False

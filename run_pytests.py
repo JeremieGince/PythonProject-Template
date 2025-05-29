@@ -10,6 +10,7 @@ from tests import configs
 from tests.conftest import RUN_SLOW_ARG_NAME
 
 if __name__ == '__main__':
+    # TODO: use argparse
     sys_args_dict = pbt.cmds.get_cmd_kwargs(
         {
             1                        : os.path.join(os.getcwd(), "tests"),
