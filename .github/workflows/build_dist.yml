@@ -9,6 +9,7 @@ permissions:
 
 jobs:
   Build-Dist:
+    if: false  # TODO: remove this line to enable this workflow
     name: Build dist
     runs-on: ubuntu-latest
 
@@ -24,7 +25,6 @@ jobs:
         python -m venv ./venv
         . ./venv/bin/activate
         python -m pip install --upgrade pip
-        pip install wheel build
         pip install poetry
         poetry install --with=dev --no-interaction --no-ansi
 

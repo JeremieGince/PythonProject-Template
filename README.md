@@ -10,7 +10,6 @@
 ![Tests Workflow](https://github.com/JeremieGince/PythonProject-Template/actions/workflows/tests.yml/badge.svg)
 ![Dist Workflow](https://github.com/JeremieGince/PythonProject-Template/actions/workflows/build_dist.yml/badge.svg)
 ![Doc Workflow](https://github.com/JeremieGince/PythonProject-Template/actions/workflows/docs.yml/badge.svg)
-![Publish Workflow](https://github.com/JeremieGince/PythonProject-Template/actions/workflows/publish.yml/badge.svg)
 ![Code coverage](https://raw.githubusercontent.com/JeremieGince/PythonProject-Template/coverage-badge/coverage.svg)
 
 # Description
