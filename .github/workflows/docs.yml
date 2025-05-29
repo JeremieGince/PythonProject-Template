@@ -19,17 +19,16 @@ jobs:
 
     - name: Install dependencies
       run: |
+        python -m venv ./venv
+        . ./venv/bin/activate
         python -m pip install --upgrade pip
-        pip install flake8
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        pip install -U sphinx==6.2.1 docutils==0.18.1 sphinx_rtd_theme==1.2.2 sphinxcontrib-bibtex==2.5.0
-        pip install sphinx-theme
-        pip install groundwork-sphinx-theme
-        pip install karma_sphinx_theme
-        pip install sphinx-mdinclude
+        pip install wheel build
+        pip install poetry
+        poetry install --with=docs --no-interaction --no-ansi
 
     - name: Build the sphinx docs
       run: |
+        . ./venv/bin/activate
         sphinx-apidoc -f -o ./sphinx/source ./src/<package_name>
         make -C sphinx clean
         python sphinx/clean_html_files.py
@@ -43,6 +42,7 @@ jobs:
 
     - name: Copy build files to docs folder
       run: |
+        . ./venv/bin/activate
         cp -a sphinx/build/html/. docs/
         python sphinx/make_html_files_list.py
         rm -rf sphinx/build
