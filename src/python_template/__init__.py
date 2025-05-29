@@ -1,6 +1,7 @@
 """
 Project description.
 """
+
 import importlib_metadata
 
 __author__ = "Jeremie Gince"
@@ -15,4 +16,3 @@ import warnings
 
 warnings.filterwarnings("ignore", category=Warning, module="docutils")
 warnings.filterwarnings("ignore", category=Warning, module="sphinx")
-
