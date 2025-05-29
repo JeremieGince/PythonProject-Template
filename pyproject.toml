@@ -1,6 +1,6 @@
 [project]
 name = "PythonTemplate"
-version = "0.0.0"
+version = "0.0.1"
 dynamic = ["readme"]
 description = ""
 authors = [{name = "Jeremie Gince", email = "gincejeremie@gmail.com"},]
