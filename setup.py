@@ -2,12 +2,12 @@ from setuptools import setup
 import setuptools
 
 setup(
-    name='MSim',
+    name='PythonTemplate',
     long_description='file: README.md',
     long_description_content_type="text/markdown",
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
-    python_requires=">=3.8",
+    python_requires=">=3.10",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Science/Research",

@@ -7,6 +7,7 @@ on:
 
 jobs:
   Build-Docs:
+    if: false  # TODO: remove this line to enable this workflow
     name: Build docs
     runs-on: ubuntu-latest
 
@@ -61,3 +62,9 @@ jobs:
         branch: gh-pages
         force: true
         directory: docs
+
+    - name: Publish distribution to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        skip_existing: true
+        verbose: true

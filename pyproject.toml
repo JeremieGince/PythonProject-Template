@@ -59,6 +59,9 @@ docutils = ">=0.18.1,<0.20"
 mypy = "^1.15.0"
 black = "^25.1.0"
 nbmake = "^1.5.5"
+wheel = "^0.45.1"
+build = "^1.2.2.post1"
+twine = "^6.1.0"
 
 
 [tool.poetry.group.docs.dependencies]
