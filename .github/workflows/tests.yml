@@ -4,6 +4,9 @@ on:
   pull_request:
     branches: [ "*" ]
 
+permissions:
+  contents: write
+
 jobs:
   Run-tests-on-Ubuntu:
     name: Run tests on Ubuntu-latest
