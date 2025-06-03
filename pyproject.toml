@@ -78,11 +78,6 @@ sphinx-mdinclude = "^0.6.2"
 pythonpath = [
   ".", "src",
 ]
-addopts = [
-    "--cov=src",
-    "--no-cov",
-    "--durations=10",
-]
 
 [[tool.mypy.overrides]]
 module = [
