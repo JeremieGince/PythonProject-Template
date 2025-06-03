@@ -6,6 +6,12 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
+  actions: write
+  checks: write
+  statuses: write
+  issues: write
+  discussions: write
 
 jobs:
   Run-tests-on-Ubuntu:
