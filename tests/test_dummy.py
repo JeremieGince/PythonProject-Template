@@ -1,6 +1,8 @@
+import argparse
+
 import pytest
 import python_template
-from python_template.__main__ import main
+from python_template.__main__ import main, get_args_parser
 import runpy
 
 
@@ -32,3 +34,11 @@ def test_attributes(attr):
 def test_main():
     exit_code = main("")
     assert exit_code == 0, f"Main function did not return 0, got {exit_code}"
+
+def test_get_args_parser():
+    parser = get_args_parser()
+    assert parser is not None, "get_args_parser returned None"
+    assert isinstance(parser, argparse.ArgumentParser), "get_args_parser did not return an ArgumentParser instance"
+    # Check if the parser has the expected attributes
+    assert hasattr(parser, "description"), "ArgumentParser does not have a description attribute"
+    assert parser.description == "Python Template", "ArgumentParser description does not match expected value"
