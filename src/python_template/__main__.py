@@ -1,14 +1,17 @@
 import argparse
 import sys
+from typing import Optional
 
 
-def parse_args():
-    paser = argparse.ArgumentParser()
-    return paser.parse_args()
+def get_args_parser():
+    parser = argparse.ArgumentParser(description="Python Template")
+    return parser
 
 
-def main():
-    pass
+def main(args: Optional[str] = None) -> Optional[int]:
+    parser = get_args_parser()
+    args = parser.parse_args(args)
+    return 0
 
 
 if __name__ == "__main__":

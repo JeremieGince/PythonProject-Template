@@ -1,5 +1,5 @@
 [project]
-name = "PythonTemplate"
+name = "python_template"
 version = "0.0.1"
 dynamic = ["readme"]
 description = ""
@@ -78,10 +78,17 @@ sphinx-mdinclude = "^0.6.2"
 pythonpath = [
   ".", "src",
 ]
-addopts = [
-    "--cov=src",
-    "--no-cov",
-    "--durations=10",
+
+[tool.coverage.report]
+exclude_also = [
+    'def __repr__',
+    'if self.debug:',
+    'if settings.DEBUG',
+    'raise AssertionError',
+    'raise NotImplementedError',
+    'if __name__ == .__main__.:',
+    'if TYPE_CHECKING:',
+    '@(abc\.)?abstractmethod',
 ]
 
 [[tool.mypy.overrides]]
