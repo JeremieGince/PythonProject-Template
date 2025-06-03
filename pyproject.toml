@@ -1,5 +1,5 @@
 [project]
-name = "PythonTemplate"
+name = "python_template"
 version = "0.0.1"
 dynamic = ["readme"]
 description = ""

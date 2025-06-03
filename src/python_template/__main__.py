@@ -1,5 +1,6 @@
 import argparse
 import sys
+from typing import Optional
 
 
 def get_args_parser():
@@ -7,9 +8,9 @@ def get_args_parser():
     return parser
 
 
-def main():
+def main(args: Optional[str] = None) -> Optional[int]:
     parser = get_args_parser()
-    args = parser.parse_args()
+    args = parser.parse_args(args)
     return 0
 
 
