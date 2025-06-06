@@ -38,7 +38,6 @@ FROM base_stage AS main_stage
 # Files
 WORKDIR $ROOT_DIR
 COPY --from=build_stage $ROOT_DIR ./
-VOLUME data
 
 # Entrypoint
 ENV PATH="venv/bin:$PATH"
