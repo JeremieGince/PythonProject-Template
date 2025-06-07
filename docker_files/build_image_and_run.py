@@ -44,6 +44,12 @@ def get_args_parser():
         default=False,
         help="If set, only runs the container without building the image.",
     )
+    parser.add_argument(
+        "--only_build",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="If set, only build the container without running the image.",
+    )
     return parser
 
 
@@ -73,6 +79,15 @@ def build_images(
     print(f"{cmd = }")
     subprocess.run(cmd, shell=True, check=True)
     print(f"Pruned old images")
+
+    save_images_folder = os.path.join(os.path.dirname(__file__), "..", "data", "dockerfiles")
+    os.makedirs(save_images_folder, exist_ok=True)
+    for image in images:
+        savefile = os.path.abspath(os.path.join(save_images_folder, image.replace(":", "-") + ".tar"))
+        print(f"Saving {image} to {savefile}")
+        save_cmd = f"docker save -o {savefile} {image}"
+        subprocess.run(save_cmd, shell=True, check=True)
+        print(f"{image} saved to {savefile}.")
     return images
 
 def run_container(
@@ -100,6 +115,7 @@ def run_container(
     print(f"Running container {container_name} from image {image_name}:{tag}")
     container_args = [
         "--name", container_name,
+        "--gpus all",
         "--detach",
         f"--volume="
         f"{os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'data'))}"
@@ -116,8 +132,6 @@ def run_container(
 
 def main():
     args = get_args_parser().parse_args()
-    if not args.image_name:
-        args.image_name = os.path.basename(os.path.dirname(os.path.dirname(__file__)))
     print(f"Running with args: {json.dumps(vars(args), indent=4)}")
     if args.only_run:
         images = [f"{args.image_name}:{args.tag}"]
@@ -127,12 +141,20 @@ def main():
             tag=args.tag,
             image_name=args.image_name,
         )
+    if args.only_build:
+        return 0
     for image in images:
+        container_img_part = (
+            image
+            .replace("/", "-")
+            .replace(":", "-")
+            .replace(".", "-")
+        )
         run_container(
             image_name=image,
             tag=args.tag,
             args=json.loads(args.args) if args.args else None,
-            container_name=f"{args.image_name}-{args.mode}",
+            container_name=f"{container_img_part}-{args.mode}",
             run_args=["-e", f"MODE={args.mode}"],
         )
     return 0

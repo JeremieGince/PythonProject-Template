@@ -37,13 +37,11 @@ jobs:
     - name: Test Linting
       run: |
         . ./venv/bin/activate
-        black src --check --diff
-        black tests --check --diff
+        black src tests --check --diff
     - name: Test Typing
       run: |
         . ./venv/bin/activate
-        mypy src
-        mypy tests
+        mypy src tests
     - name: Test Notebooks
       run: |
         . ./venv/bin/activate

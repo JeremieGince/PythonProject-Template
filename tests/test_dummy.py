@@ -26,9 +26,7 @@ def test_dummy(dummy):
 def test_attributes(attr):
     assert hasattr(python_template, attr), f"Module does not have attribute {attr}"
     assert getattr(python_template, attr) is not None, f"Attribute {attr} is None"
-    assert isinstance(
-        getattr(python_template, attr), str
-    ), f"Attribute {attr} is not a string"
+    assert isinstance(getattr(python_template, attr), str), f"Attribute {attr} is not a string"
 
 
 def test_main():
@@ -39,13 +37,7 @@ def test_main():
 def test_get_args_parser():
     parser = get_args_parser()
     assert parser is not None, "get_args_parser returned None"
-    assert isinstance(
-        parser, argparse.ArgumentParser
-    ), "get_args_parser did not return an ArgumentParser instance"
+    assert isinstance(parser, argparse.ArgumentParser), "get_args_parser did not return an ArgumentParser instance"
     # Check if the parser has the expected attributes
-    assert hasattr(
-        parser, "description"
-    ), "ArgumentParser does not have a description attribute"
-    assert (
-        parser.description == "Python Template"
-    ), "ArgumentParser description does not match expected value"
+    assert hasattr(parser, "description"), "ArgumentParser does not have a description attribute"
+    assert parser.description == "Python Template", "ArgumentParser description does not match expected value"
