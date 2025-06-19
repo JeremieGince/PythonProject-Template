@@ -1,9 +1,10 @@
 import argparse
+import runpy
 
 import pytest
+
 import python_template
-from python_template.__main__ import main, get_args_parser
-import runpy
+from python_template.__main__ import get_args_parser, main
 
 
 @pytest.mark.parametrize("dummy", list(range(10)))
