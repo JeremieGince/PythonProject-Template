@@ -10,7 +10,7 @@
 ![Tests Workflow](https://github.com/JeremieGince/PythonProject-Template/actions/workflows/tests.yml/badge.svg)
 ![Dist Workflow](https://github.com/JeremieGince/PythonProject-Template/actions/workflows/build_dist.yml/badge.svg)
 ![Doc Workflow](https://github.com/JeremieGince/PythonProject-Template/actions/workflows/docs.yml/badge.svg)
-![Code coverage](https://raw.githubusercontent.com/JeremieGince/PythonProject-Template/coverage-badge/coverage.svg)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 # Description
 
