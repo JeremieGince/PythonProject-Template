@@ -18,7 +18,7 @@ requires-python = ">=3.10,<4"
 dependencies = [
     "numpy (>=1.23,<3.0.0)",
     "setuptools>=65.5.1",
-    "pythonbasictools>=0.0.1a11",
+    "pythonbasictools>=0.0.3",
     "psutil>=5.9.6",
     "importlib-metadata (>=8.7.0,<9.0.0)"
 ]

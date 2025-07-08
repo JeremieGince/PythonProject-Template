@@ -67,8 +67,6 @@ def update_pyproject_toml(args):
         print(f"Setting author to {new_author}")
         content = re.sub(r'authors = \[.*?]', new_author, content)
     if args.package_name is not None:
-        new_version = "version = {attr = \"%s.__version__\"}" % args.package_name
-        content = re.sub(r'version = {attr = ".*?"}', new_version, content)
         content = re.sub(
             r'packages = \[{include = ".*?", from="src"\}]',
             f'packages = [{{include = "{args.package_name}", from="src"}}]',
@@ -93,6 +91,8 @@ def update_init_file(args):
         content = re.sub(r'__email__ = "(.*?)"', f'__email__ = "{args.email}"', content)
     if args.url is not None:
         content = re.sub(r'__url__ = "(.*?)"', f'__url__ = "{args.url}"', content)
+    if args.pakage_name is not None:
+        content = re.sub(r'__package__ = "(.*?)"', f'__package__ = "{args.package_name}"', content)
     with open(init_file, "w") as f:
         f.write(content)
     return 0
@@ -144,7 +144,7 @@ def update_readme_md(args):
     with open("README.md", "r") as f:
         content = f.read()
     if args.project_name is not None:
-        content = re.sub(r'# (.*?)', f'# {args.project_name}\n', content)
+        content = re.sub(r'# PythonProject-Template', f'# {args.project_name}\n', content)
     with open("README.md", "w") as f:
         f.write(content)
     return 0
