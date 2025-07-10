@@ -1,5 +1,4 @@
 import argparse
-import runpy
 
 import pytest
 
