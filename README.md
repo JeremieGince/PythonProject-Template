@@ -47,7 +47,6 @@ The project is constituted by the following parts:
 - **.gitattributes**: This file is responsible for setting the git attributes of the project.
 - **.gitignore**: This file is responsible for ignoring the files that you don't want to commit to the repository.
    A basic one is already provided and should be enough for most of the projects.
-- **requirements.txt**: This file is responsible for listing the dependencies of the project.
 - **pyproject.toml**: This file is responsible for listing the dependencies of the project and the 
    configuration of the project.
 - **README.md**: This file is responsible for providing information about the project.
@@ -56,7 +55,6 @@ The project is constituted by the following parts:
    Feel free to remove it once you used it.
 - **setup.py**: This file is responsible for setting up the project.
 - **LICENSE**: This file is responsible for providing the license of the project.
-- **run_pytests.py**: This script is used by the github actions to run the tests.
 
 # README TEMPLATE
 
@@ -67,7 +65,8 @@ With `python` and `pip` installed, run the following commands to install the dep
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install poetry
+python -m poetry install
 ```
 
 With `poetry` installed, run the following commands to install the dependencies:

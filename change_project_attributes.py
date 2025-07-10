@@ -156,7 +156,7 @@ def update_license(args):
     with open("LICENSE", "r") as f:
         content = f.read()
     if args.author is not None:
-        content = re.sub(r'Copyright (.*?) (.*?)', f'Copyright {datetime.datetime.now().year} {args.author}', content)
+        content = re.sub(r'Copyright (.*?) (Jérémie Gince)', f'Copyright {datetime.datetime.now().year} {args.author}', content)
     with open("LICENSE", "w") as f:
         f.write(content)
     return 0
@@ -217,4 +217,3 @@ def main():
 
 if __name__ == '__main__':
     sys.exit(main())
-
