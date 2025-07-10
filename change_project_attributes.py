@@ -91,7 +91,7 @@ def update_init_file(args):
         content = re.sub(r'__email__ = "(.*?)"', f'__email__ = "{args.email}"', content)
     if args.url is not None:
         content = re.sub(r'__url__ = "(.*?)"', f'__url__ = "{args.url}"', content)
-    if args.pakage_name is not None:
+    if args.package_name is not None:
         content = re.sub(r'__package__ = "(.*?)"', f'__package__ = "{args.package_name}"', content)
     with open(init_file, "w") as f:
         f.write(content)
@@ -156,7 +156,7 @@ def update_license(args):
     with open("LICENSE", "r") as f:
         content = f.read()
     if args.author is not None:
-        content = re.sub(r'Copyright (.*?) (Jérémie Gince)', f'Copyright {datetime.datetime.now().year} {args.author}', content)
+        content = re.sub(r'Copyright (.*?) Jérémie Gince', f'Copyright {datetime.datetime.now().year} {args.author}', content)
     with open("LICENSE", "w") as f:
         f.write(content)
     return 0
