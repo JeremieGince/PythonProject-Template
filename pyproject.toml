@@ -1,9 +1,10 @@
 [project]
 name = "python_template"
 version = "0.0.1"
-dynamic = ["readme"]
 description = ""
-authors = [{name = "Jeremie Gince", email = "gincejeremie@gmail.com"},]
+authors = [{ name = "Jeremie Gince", email = "gincejeremie@gmail.com" }]
+requires-python = ">=3.10,<4"
+license = { file = "LICENSE" }
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
@@ -14,16 +15,41 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Operating System :: OS Independent",
 ]
-requires-python = ">=3.10,<4"
 dependencies = [
     "numpy (>=1.23,<3.0.0)",
     "setuptools>=65.5.1",
     "pythonbasictools>=0.0.3",
     "psutil>=5.9.6",
-    "importlib-metadata (>=8.7.0,<9.0.0)"
+    "importlib-metadata (>=8.7.0,<9.0.0)",
 ]
-license={file="LICENSE"}
+dynamic = ["readme"]
 
+[dependency-groups]
+dev = [
+    "pytest-cov>=6.1.1,<7",
+    "pytest-json-report>=1.5.0,<2",
+    "pytest>=8.3.5,<9",
+    "docutils>=0.18.1,<0.20",
+    "mypy>=1.15.0,<2",
+    "black>=25.1.0,<26",
+    "nbmake>=1.5.5,<2",
+    "wheel>=0.45.1,<0.46",
+    "build>=1.2.2.post1,<2",
+    "twine>=6.1.0,<7",
+    "pytest-xdist>=3.7.0,<4",
+    "isort>=6.0.1,<7",
+    "pytest-timeout>=2.4.0",
+]
+docs = [
+    "sphinx>=6.2.1,<6.3.0",
+    "docutils>=0.18.1,<0.20",
+    "sphinx-rtd-theme>=3.0.2,<4",
+    "sphinxcontrib-bibtex>=2.5.0,<2.6.0",
+    "sphinx-theme~=1.0",
+    "groundwork-sphinx-theme>=1.1.1,<2",
+    "karma-sphinx-theme>=0.0.8,<0.0.9",
+    "sphinx-mdinclude>=0.6.2,<0.7",
+]
 
 [build-system]
 requires = [
@@ -35,46 +61,30 @@ requires = [
 ]
 build-backend = "setuptools.build_meta"
 
+[tool.uv]
+package = true
+default-groups = [
+    "dev",
+    "docs",
+]
 
 [tool.setuptools.dynamic]
 readme = {file = "README.md", content-type = "text/markdown"}
 
+[tool.hatch.build.targets.sdist]
+include = ["src/python_template"]
+
+[tool.hatch.build.targets.wheel]
+include = ["src/python_template"]
+
+[tool.hatch.build.targets.wheel.sources]
+"src/python_template" = "python_template"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
-
-[tool.poetry]
-package-mode = true
-packages = [{include = "python_template", from="src"}]
-
-
-[tool.poetry.group.dev.dependencies]
-pytest-cov = "^6.1.1"
-pytest-json-report = "^1.5.0"
-pytest = "^8.3.5"
-docutils = ">=0.18.1,<0.20"
-mypy = "^1.15.0"
-black = "^25.1.0"
-nbmake = "^1.5.5"
-wheel = "^0.45.1"
-build = "^1.2.2.post1"
-twine = "^6.1.0"
-pytest-xdist = "^3.7.0"
-isort = "^6.0.1"
-
-
-[tool.poetry.group.docs.dependencies]
-sphinx = ">=6.2.1,<6.3.0"
-docutils = ">=0.18.1,<0.20"
-sphinx-rtd-theme = "^3.0.2"
-sphinxcontrib-bibtex = ">=2.5.0,<2.6.0"
-sphinx-theme = "^1.0"
-groundwork-sphinx-theme = "^1.1.1"
-karma-sphinx-theme = "^0.0.8"
-sphinx-mdinclude = "^0.6.2"
 
 [tool.pytest.ini_options]
 pythonpath = [
