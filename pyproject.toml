@@ -1,6 +1,6 @@
 [project]
 name = "python_template"
-version = "0.0.1"
+version = "0.0.2"
 description = ""
 authors = [{ name = "Jeremie Gince", email = "gincejeremie@gmail.com" }]
 requires-python = ">=3.10,<4"
