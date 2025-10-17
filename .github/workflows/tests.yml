@@ -65,7 +65,7 @@ jobs:
       if: ${{ matrix.python-version == '3.10' }}
       run: |
         uv run build --sdist --wheel --no-isolation --outdir dist/ .
-        twine check dist/*
+        uv run twine check dist/*
 
   Run-tests-on-Windows:
     name: Run tests on Windows-latest
