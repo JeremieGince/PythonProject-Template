@@ -61,12 +61,18 @@ The project is constituted by the following parts:
 ## Installation
 ### Development Dependencies
 
+With `uv` installed, run the following commands to install the dependencies:
+```bash
+uv venv .venv
+uv sync --dev
+```
+
 With `python` and `pip` installed, run the following commands to install the dependencies:
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install poetry
-python -m poetry install
+pip install uv
+python -m uv sync --dev
 ```
 
 With `poetry` installed, run the following commands to install the dependencies:
@@ -75,6 +81,7 @@ python -m venv .venv
 source .venv/bin/activate
 poetry install
 ```
+
 
 ## Scripting Usage
 To run a single training, you can run the following command:
