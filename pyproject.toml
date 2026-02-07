@@ -53,11 +53,10 @@ docs = [
 
 [build-system]
 requires = [
-    "setuptools",
-    "wheel",
-    "pythonbasictools",
-    "numpy",
-    "psutil",
+    "setuptools>=57.0.0",
+    "wheel>=0.45.1,<0.46",
+    "build>=1.2.2.post1,<2",
+    "twine>=6.1.0,<7",
 ]
 build-backend = "setuptools.build_meta"
 
@@ -70,15 +69,6 @@ default-groups = [
 
 [tool.setuptools.dynamic]
 readme = {file = "README.md", content-type = "text/markdown"}
-
-[tool.hatch.build.targets.sdist]
-include = ["src/python_template"]
-
-[tool.hatch.build.targets.wheel]
-include = ["src/python_template"]
-
-[tool.hatch.build.targets.wheel.sources]
-"src/python_template" = "python_template"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
