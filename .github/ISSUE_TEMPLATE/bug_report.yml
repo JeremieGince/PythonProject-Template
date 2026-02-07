@@ -51,7 +51,7 @@ body:
     id: system
     attributes:
       label:  System information
-      description: Please provide informations about you python version and os. The command `python -c "import sys; print(sys.version, sys.platform)"` can be used to get this information. Provide also the output of `pip list` command.
+      description: Please provide informations about your python version and os by running the command `uv run python -c "import sys; print(sys.version, sys.platform)"; uv pip list` in your terminal.
       render: shell
     validations:
       required: true
