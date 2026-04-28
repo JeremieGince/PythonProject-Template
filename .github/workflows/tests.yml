@@ -50,16 +50,27 @@ jobs:
 
     - name: Test Unittests with pytest
       run: |
-        uv run pytest tests -n=auto --cov=src --cov-report="xml:tests/.tmp/coverage.xml" --cov-report=term-missing --durations=10 --session-timeout=600
+        uv run pytest tests \
+        ${{ github.event.pull_request.head.repo.full_name != github.repository && '--cov-fail-under=98' || '' }} \
+        -n=auto --cov=src --cov-branch --cov-report="xml:tests/.tmp/coverage.xml" --cov-report=term-missing \
+        --durations=30 --session-timeout=600
 
-    - name: Code Coverage
-      uses: orgoro/coverage@v3.2
+    - name: Debug coverage before upload
+      if: matrix.python-version == '3.11'
+      run: |
+        echo "=== Coverage summary ==="
+        head -5 tests/.tmp/coverage.xml
+
+    - name: Upload coverage artifact
+      if: |
+        matrix.python-version == '3.11' &&
+        github.event.pull_request.head.repo.full_name == github.repository
+      uses: actions/upload-artifact@v4
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        coverageFile: tests/.tmp/coverage.xml
-        thresholdAll: 0.98
-        thresholdNew: 0.98
-        thresholdModified: 0.98
+        name: coverage
+        path: tests/.tmp/coverage.xml
+        if-no-files-found: error
+        retention-days: 1
 
     - name: Test Build
       if: ${{ matrix.python-version == '3.10' }}
@@ -69,7 +80,9 @@ jobs:
 
   Run-tests-on-Windows:
     name: Run tests on Windows-latest
+    needs: [ Run-tests-on-Ubuntu ]
     runs-on: windows-latest
+    if: success()
     strategy:
       matrix:
         python-version: [ "3.10", "3.11", "3.12", "3.13" ]
@@ -93,3 +106,36 @@ jobs:
     - name: Test Unittests with pytest
       run: |
         uv run pytest tests -n=auto --session-timeout=600
+
+
+  Coverage:
+    name: Post Coverage Report
+    needs: [ Run-tests-on-Ubuntu ]
+    runs-on: ubuntu-latest
+    if: success() && github.event.pull_request.head.repo.full_name == github.repository
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
+      checks: write
+      statuses: write
+      issues: write
+      discussions: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          path: tests/.tmp
+          name: coverage
+      - run: ls -R tests/.tmp
+      - name: Debug coverage file
+        run: cat tests/.tmp/coverage.xml | head -50
+      - name: Post coverage
+        uses: orgoro/coverage@v3.2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          coverageFile: tests/.tmp/coverage.xml
+          thresholdAll: 0.98
+          thresholdNew: 0.98
+          thresholdModified: 0.98
